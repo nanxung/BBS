@@ -1,0 +1,40 @@
+{% extends 'index.html' %}
+{% load comments %}
+{% block page-content %}
+    <div class="contents">
+
+{{ bbs_obj.title }}
+
+<br>
+{{ bbs_obj.content|safe }}
+    </div>
+    <hr>
+<div class="comments">
+    <div >
+        {% get_comment_count for bbs_obj as comment_count %}
+        <span class="glypython glypython-comment">
+
+        </span>
+        {{ comment_count }}
+    </div>
+<br>
+
+<form action="/sub_comment/" method="post">
+    {% csrf_token %}
+    <textarea cos="80" rows="3" name="comment_content"></textarea><br>
+    <input type="hidden" name="bbs_id" value="{{ bbs_obj.id }}"/>
+    <input type="submit" value="Add comment" id="id_submit"/>
+</form>
+
+{% get_comment_list for bbs_obj as comment_list %}
+
+{#{% render_comment_list for bbs_obj %}#}
+{% for comment in comment_list reversed %}
+    {{ comment.submit_date }}  {{ comment.name }}
+    <br>
+
+    {{ comment.comment }}
+    <hr>
+{% endfor %}
+</div>
+{% endblock %}
