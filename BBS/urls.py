@@ -20,15 +20,18 @@ from django.contrib.auth.views import login
 from junge import views
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^index/$',views.index),
+    url(r'^$',views.index),
     url(r'^detail/(\d+)/$',views.detail),
     url(r'^sub_comment/$',views.sub_comment),
 
     url(r'^accounts/Login/$',login,{'template_name':'Login.html'}),
-
+    url(r'^acc_reg/$',views.acc_reg),
     url(r'^login/$',views.Login),
     url(r'^acc_login/$',views.acc_login),
     url(r'^logout/$',views.logout_view),
     url(r'^bbs_pub/$',views.bbs_pub),
     url(r'^bbs_sub/$',views.bbs_sub),
+    url(r'^reg/$',views.reg),
+    url(r'^log/$',views.log),
+
 ]

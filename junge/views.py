@@ -40,14 +40,14 @@ def acc_login(request):
         Welcome %s !!!
         <a href='/logout/' >Logout</a>
         '''%user.username
-        return HttpResponseRedirect('/index/')
+        return HttpResponseRedirect('/')
 
 def logout_view(request):
     user=request.user
     auth.logout(request)
-    return HttpResponse("<b>%s</b> logge out! <br/><a href='/index/'>Re_login</a>" %user)
+    return HttpResponse("<b>%s</b> logge out! <br/><a href='/'>Re_login</a>" %user)
 def Login(request):
-    return render(request, 'Login.html')
+    return render(request, 'zh.html')
 
 def bbs_pub(request):
 
@@ -64,3 +64,31 @@ def bbs_sub(request):
     ranking = 1,
     )
     return HttpResponse('yes.')
+
+def reg(request):
+    return render(request,'zhreg.html')
+
+
+def log(request):
+    return render(request,'zh.html')
+
+def acc_reg(request):
+    name=request.POST.get('username')
+    pawd=request.POST.get('password')
+    u=models.User(username=name)
+    u.set_password(pawd)
+    u.save()
+    # obj=models.BBS_user.user
+    #
+    # obj.Username=name
+    # obj.Password=pawd
+    # obj.save()
+    # obj=models.BBS_user.objects.get(user__username=request.user)
+    # models.BBS_user.objects.create(
+    #     Username=request.GET('username'),
+    #     Password=request.GET('password'),
+    # )
+    # obj.username=request.GET('username')
+    # obj.password=request.GET('password')
+    # obj.save()
+    return HttpResponse('注册成功！')
